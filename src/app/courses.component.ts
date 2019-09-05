@@ -4,11 +4,11 @@ import { CoursesService } from './courses.service';
 @Component({
     selector: 'app-courses',
     template: `
-        <input (keyup.enter)="onKeyUp()" />
+        <input #email (keyup.enter)="onKeyUp(email.value)" />
     `
 })
 export class CoursesComponent {
-    onKeyUp() {
-        console.log('ENTER was pressed');
+    onKeyUp(email) {
+        console.log(email);
     }
 }
