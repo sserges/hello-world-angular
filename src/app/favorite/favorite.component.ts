@@ -9,7 +9,9 @@ export class FavoriteComponent implements OnInit {
   // tslint:disable-next-line:no-input-rename
   @Input('isFavorite') isSelected: boolean;
   // tslint:disable-next-line:no-output-native
-  @Output() change = new EventEmitter();
+  // tslint:disable-next-line:no-output-rename
+  // tslint:disable-next-line:no-output-native
+  @Output('change') click = new EventEmitter();
 
   constructor() { }
 
@@ -18,7 +20,7 @@ export class FavoriteComponent implements OnInit {
 
   onClick() {
     this.isSelected = !this.isSelected;
-    this.change.emit({ newValue: this.isSelected });
+    this.click.emit({ newValue: this.isSelected });
   }
 }
 
