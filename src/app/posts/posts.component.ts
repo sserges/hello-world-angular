@@ -23,6 +23,14 @@ export class PostsComponent implements OnInit {
         post.id = response.id;
         this.posts.splice(0, 0, post);
         // console.log(response);
+      },
+      (error: Response) => {
+        if (error.status === 400) {
+          // this.form.setErrors(error.json());
+        } else {
+          alert('An unexpected error occurred.');
+          console.log(error);
+        }
       }
     );
   }
@@ -40,15 +48,19 @@ export class PostsComponent implements OnInit {
   }
 
   deletePost(post) {
-   this.postService.deletePost(post.id).subscribe(
+   this.postService.deletePost(345).subscribe(
       response => {
         const index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
         console.log(response);
       },
-      error => {
-        alert('An unexpected error occurred.');
-        console.log(error);
+      (error: Response) => {
+        if (error.status === 404) {
+          alert('This post has already been deleted.');
+        } else {
+          alert('An unexpected error occurred.');
+          console.log(error);
+        }
       }
     );
   }
