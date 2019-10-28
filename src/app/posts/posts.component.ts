@@ -17,13 +17,20 @@ export class PostsComponent implements OnInit {
   constructor(private postService: PostService) {
   }
 
+
+  ngOnInit() {
+    this.postService.getAll().subscribe(
+      posts => this.posts = posts
+    );
+  }
+
   createPost(input: HTMLInputElement) {
     const post: any = { title: input.value };
     input.value = '';
 
-    this.postService.createPost(post).subscribe(
-      response => {
-        post.id = response.id;
+    this.postService.create(post).subscribe(
+      newPost => {
+        post.id = newPost.id;
         this.posts.splice(0, 0, post);
         // console.log(response);
       },
@@ -38,19 +45,18 @@ export class PostsComponent implements OnInit {
   }
 
   updatePost(post) {
-    this.postService.updatePost(post).subscribe(
-      response => {
-        console.log(response);
+    this.postService.update(post).subscribe(
+      updatedPost => {
+        console.log(updatedPost);
       }
     );
   }
 
   deletePost(post) {
-   this.postService.deletePost(345).subscribe(
-      response => {
+   this.postService.delete(345).subscribe(
+      () => {
         const index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
-        console.log(response);
       },
       (error: AppError) => {
         if (error instanceof NotFoundError) {
@@ -58,14 +64,6 @@ export class PostsComponent implements OnInit {
         } else {
           throw error;
         }
-      }
-    );
-  }
-
-  ngOnInit() {
-    this.postService.getPosts().subscribe(
-      response => {
-        this.posts = response;
       }
     );
   }
