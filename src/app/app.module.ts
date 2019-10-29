@@ -24,6 +24,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PostsComponent } from './posts/posts.component';
 import { PostService } from './services/post.service';
 import { AppErrorHandler } from './common/app-error-handler';
+import { GithubFollowersComponent } from './github-followers/github-followers.component';
+import { GithubFollowersService } from './github-followers.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { AppErrorHandler } from './common/app-error-handler';
     SignupFormComponent,
     NewCourseTwoFormComponent,
     ChangePasswordComponent,
-    PostsComponent
+    PostsComponent,
+    GithubFollowersComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { AppErrorHandler } from './common/app-error-handler';
     CoursesService,
     AuthorsService,
     PostService,
+    GithubFollowersService,
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler
